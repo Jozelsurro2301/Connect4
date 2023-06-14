@@ -1,4 +1,23 @@
 ﻿<Properties StartupConfiguration="{E5CE9365-53B9-4E67-9E7B-AEF0FD146813}|Default">
-  <MonoDevelop.Ide.ItemProperties.Connect4__Jozel__surro FirstBuild="True" />
+  <MonoDevelop.Ide.ItemProperties.Connect4__Jozel__surro PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+    <Files>
+      <File FileName="Program.cs" Line="11" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Connect4_Jozel_surro" expanded="True">
+            <Node name="Connect4_Jozel_surro" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
