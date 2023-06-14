@@ -1,0 +1,15 @@
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/bin/Debug/net7.0/Connect4_Jozel_surro
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/bin/Debug/net7.0/Connect4_Jozel_surro.deps.json
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/bin/Debug/net7.0/Connect4_Jozel_surro.runtimeconfig.json
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/bin/Debug/net7.0/Connect4_Jozel_surro.dll
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/bin/Debug/net7.0/Connect4_Jozel_surro.pdb
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.csproj.AssemblyReference.cache
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.AssemblyInfoInputs.cache
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.AssemblyInfo.cs
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.csproj.CoreCompileInputs.cache
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.dll
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/refint/Connect4_Jozel_surro.dll
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.pdb
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/Connect4_Jozel_surro.genruntimeconfig.cache
+/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/obj/Debug/net7.0/ref/Connect4_Jozel_surro.dll
