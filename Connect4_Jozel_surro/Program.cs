@@ -5,8 +5,10 @@ class Program
     //Class for Players
     public class Player
     {
+        //Properties
         public string Playername { get; set; }
         private char _PlayerSymbol;
+
 
         public char PlayerSymbol
         {
@@ -53,16 +55,48 @@ class Program
 
         public static void CreateBoard()
         {
-            //Creates a Blank Board
+            //Creates a New Blank Board
+            for (int i = 0; i < Rows; i++)
+            {
+                Console.Write("| ");
+
+                for (int j = 0; j < Columns; j++){
+
+                    Console.Write("#");
+                    Console.Write(" ");
+                    Board[i, j] = '#';
+                }
+
+                Console.WriteLine("\n");
+            }
         }
 
-        public static void DisplayBoard()
+        public static void DisplayBoard(Player Player)
         {
             //Display the Updated Board After every move
+            for (int i = 0; i < Rows; i++)
+            {
+                Console.Write("| ");
+
+                for (int j = 0; j < Columns; j++)
+                {
+                    if (Board[i,j] == '#'){
+                        Console.Write("# ");
+                    }
+                    else
+                    {
+                        Console.Write($"{Player.PlayerSymbol} ");
+                    }
+                }
+
+                Console.WriteLine("\n");
+            }
         }
 
-
     }
+
+
+    
 
 
     public class Game
