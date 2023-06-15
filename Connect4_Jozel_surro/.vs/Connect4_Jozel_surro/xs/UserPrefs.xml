@@ -1,8 +1,13 @@
 ﻿<Properties StartupConfiguration="{E5CE9365-53B9-4E67-9E7B-AEF0FD146813}|Default">
-  <MonoDevelop.Ide.ItemProperties.Connect4__Jozel__surro PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Program.cs" Line="11" Column="1" />
+      <File FileName="Program.cs" Line="51" Column="10" />
+      <File FileName="../../../Projects/Connect4/Program.cs" Line="101" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,10 +21,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Connect4__Jozel__surro PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
