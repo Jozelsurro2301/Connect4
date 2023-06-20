@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Diagnostics;
+using System.Numerics;
 using static Connect4_Jozel_surro.Program;
 
 namespace Connect4_Jozel_surro;
@@ -7,7 +9,7 @@ namespace Connect4_Jozel_surro;
 public class Player
 {
     //Properties
-    public string Playername { get; set; }
+    public string? Playername { get; set; }
     private char _PlayerSymbol;
 
     public char PlayerSymbol
@@ -15,7 +17,6 @@ public class Player
         get { return _PlayerSymbol; }
         set { _PlayerSymbol = value; }
     }
-
 }
 
 
@@ -52,22 +53,22 @@ public static class Connect4Board
         _Board = new char[_Rows, _Columns];
     }
 
-
+    //Create a new blank board
     public static void CreateBoard()
     {
-        //Creates a New Blank Board
         for (int i = 0; i < Rows; i++)
         {
-            for (int j = 0; j < Columns; j++){
+            for (int j = 0; j < Columns; j++)
+            {
 
                 Board[i, j] = '#';
             }
         }
     }
 
+    //Displays the Game Board After Every Move
     public static void DisplayBoard()
     {
-        //Display the Updated Board After every move
         Console.WriteLine(" - - - - - - - -");
 
         for (int i = 0; i < Rows; i++)
@@ -76,13 +77,13 @@ public static class Connect4Board
 
             for (int j = 0; j < Columns; j++)
             {
-                if (Board[i,j] == '#'){
+                if (Board[i, j] == '#')
+                {
                     Console.Write("# ");
                 }
                 else
                 {
-                    Console.Write($"{Board[i,j]} ");
-                        
+                    Console.Write($"{Board[i, j]} ");
                 }
             }
 
@@ -95,8 +96,19 @@ public static class Connect4Board
 
 }
 
+
+//The interface of the Game Process
+public interface IGameProcess
+{
+    void GetPlayers();
+    void StartGame();
+    void Restart();
+}
+
+//Class for the Basic Implementation of the Game
 public class Game
 {
+    //Creates 2 players
     protected Player Player1;
     protected Player Player2;
 
@@ -106,105 +118,38 @@ public class Game
         Player2 = new Player();
     }
 
-
-    public virtual void GetPlayers()
+    //Every Game has 1 human playing
+    //This is the method that gets the move of Human
+    public static bool PlayGame(Player player)
     {
-        //Gets player informations
-        Console.WriteLine("Please enter name for Player 1");
-        Player1.Playername = Console.ReadLine();
-        Player1.PlayerSymbol = 'X';
-        Console.WriteLine("Please enter name for Player 2");
-        Player2.Playername = Console.ReadLine();
-        Player2.PlayerSymbol = 'O';
-    }
-
-    public virtual void StartGame()
-    {
-        //Start the Game
-        bool gameover = false;
-        Console.WriteLine("Welcome to Connect 4 Game!");
-        GetPlayers();
-        Console.Clear();
-        Connect4Board.CreateBoard();
-
-        do
-        {
-
-            gameover = PlayGame(Player1);
-            if( gameover == true)
-            {
-                PrintWinner(Player1);
-                Restart();
-            }
-
-            gameover = PlayGame(Player2);
-            if (gameover == true)
-            {
-                PrintWinner(Player2);
-                Restart();
-            }
-
-        } while (gameover == false);
-           
-
-    }
-
-    public bool PlayGame(Player player)
-    {
-        //Plays the game
-        bool winner = false;
-        bool FullColumn = false;
         int move;
         do
         {
             Connect4Board.DisplayBoard();
             Console.WriteLine($"{player.Playername}, Enter a number from 1-7: ");
             move = Convert.ToInt32(Console.ReadLine()) - 1;
-            FullColumn = CheckPiece(move);
-            if(FullColumn == true)
+            if (IsColumnFull(move))
             {
                 move = 10;
             }
 
         } while (move > 6 || move < 0);
 
-        PlacePiece(move , player);
-        winner = CheckWin(player);
+        PlacePiece(move, player);
         CheckIfFull();
         Console.Clear();
-        if(winner == true)
+        if (IsWinner(player))
         {
             Connect4Board.DisplayBoard();
             return true;
         }
-
         return false;
-
     }
 
-    public void Restart()
-    {
-        //Checks for A new game after every game
-        int restart;
-        do
-        {
-            Console.WriteLine("Play Again? [1] = Yes, [2] = No");
-            restart = Convert.ToInt32(Console.ReadLine());
-            if (restart == 1)
-            {
-                Console.Clear();
-                StartGame();
-            }
-            else if (restart == 2)
-            {
-                Environment.Exit(0);
-            }
-        } while (restart != 1 || restart != 2);
-    }
 
-    public bool CheckPiece(int piece)
+    //Checks if the a column is full
+    public static bool IsColumnFull(int piece)
     {
-        //Check if piece can be placed to the column
         for (int i = Connect4Board.Rows - 1; i >= 0; i--)
         {
             if (Connect4Board.Board[i, piece] == '#')
@@ -218,23 +163,23 @@ public class Game
         return true;
     }
 
-    public void PlacePiece(int piece, Player player)
+    //Places the players piece to the board
+    public static void PlacePiece(int piece, Player player)
     {
-        //Places the Players piece in the board
-
-            for (int i = Connect4Board.Rows - 1; i >= 0; i--)
+        for (int i = Connect4Board.Rows - 1; i >= 0; i--)
+        {
+            if (Connect4Board.Board[i, piece] == '#')
             {
-                if (Connect4Board.Board[i, piece] == '#')
-                {
-                    Connect4Board.Board[i, piece] = player.PlayerSymbol;
+                Connect4Board.Board[i, piece] = player.PlayerSymbol;
                 return;
-                }
             }
+        }
     }
 
-    public bool CheckWin(Player player)
+
+    //Check for winning patters
+    public static bool IsWinner(Player player)
     {
-        //Check if players got connect4
         for (int i = 5; i >= 0; i--)
         {
             for (int j = 0; j <= 3; j++)
@@ -263,7 +208,6 @@ public class Game
                 {
                     //Return Win
                     return true;
-
                 }
             }
         }
@@ -273,7 +217,6 @@ public class Game
         {
             for (int j = 0; j <= 3; j++)
             {
-
                 //Diagonal Going Right Up
                 if (Connect4Board.Board[i, j] == player.PlayerSymbol &&
                 Connect4Board.Board[i - 1, j + 1] == player.PlayerSymbol &&
@@ -283,7 +226,6 @@ public class Game
                     //Return Win
                     return true;
                 }
-
             }
         }
 
@@ -293,7 +235,6 @@ public class Game
             for (int j = 3; j <= 6; j++)
             {
                 //Diagonal Going Left Up
-
                 if (Connect4Board.Board[i, j] == player.PlayerSymbol &&
                     Connect4Board.Board[i - 1, j - 1] == player.PlayerSymbol &&
                     Connect4Board.Board[i - 2, j - 2] == player.PlayerSymbol &&
@@ -305,52 +246,55 @@ public class Game
             }
         }
 
+        //return fase if there is not winning pattern
         return false;
 
     }
 
-    public void PrintWinner(Player player)
+    //Checks if the board is full
+    public static bool CheckIfFull()
     {
-        //Returns the Winner
-        Console.WriteLine($"It is a Connect 4!, {player.Playername} Wins!");
-    }
-
-    public void CheckIfFull()
-    {
-        //Checks the board if the it is full (Draw)
         for (int i = 5; i >= 0; i--)
         {
-            for ( int j = 0; j < 7; j++)
+            for (int j = 0; j < 7; j++)
             {
-                if (Connect4Board.Board[i,j] == '#')
+                if (Connect4Board.Board[i, j] == '#')
                 {
-                    return;
+                    return false;
                 }
             }
         }
         Console.WriteLine("It's a Draw!");
-        Restart();
+        return true;
+    }
+
+    //Prints the winner of the game
+    public static void PrintWinner(Player player)
+    {
+        Console.WriteLine($"It is a Connect 4!, {player.Playername} Wins!");
     }
 }
 
-public class GameAI : Game
-{
-    protected Random rnd = new Random();
 
-    public override void GetPlayers()
+//Class for the Game Implementation VS Human.
+//This inherits the Game class and gets the interface of the IGameProcess
+public class GameVsHuman : Game, IGameProcess
+{
+    //Gets both players information and assigns the symbol for the game
+    public void GetPlayers()
     {
-        //Gets player informations
         Console.WriteLine("Please enter name for Player 1");
         Player1.Playername = Console.ReadLine();
         Player1.PlayerSymbol = 'X';
-        Player2.Playername = "Computer";
+        Console.WriteLine("Please enter name for Player 2");
+        Player2.Playername = Console.ReadLine();
         Player2.PlayerSymbol = 'O';
     }
 
-    public override void StartGame()
+    //Starts the Game 
+    public void StartGame()
     {
-        //Start the Game
-        bool gameover = false;
+        bool gameover;
         Console.WriteLine("Welcome to Connect 4 Game!");
         GetPlayers();
         Console.Clear();
@@ -358,36 +302,108 @@ public class GameAI : Game
 
         do
         {
-
             gameover = PlayGame(Player1);
-            if (gameover == true)
+            if (gameover)
+            {
+                PrintWinner(Player1);
+                Restart();
+            }
+
+            gameover = PlayGame(Player2);
+            if (gameover)
+            {
+                PrintWinner(Player2);
+                Restart();
+            }
+
+        } while (!gameover);
+
+
+    }
+
+    //Prompts for a restart after a game has ended
+    public void Restart()
+    {
+        int restart;
+        do
+        {
+            Console.WriteLine("Play Again? [1] = Yes, [2] = No");
+            restart = Convert.ToInt32(Console.ReadLine());
+            if (restart == 1)
+            {
+                Console.Clear();
+                StartGame();
+            }
+            else if (restart == 2)
+            {
+                Environment.Exit(0);
+            }
+        } while (restart != 1 || restart != 2);
+    }
+}
+
+
+// An interface for the Human vs AI mode
+public interface IGameAI
+{
+    bool PlayGameAI(Player player);
+}
+
+
+//A class for a the game implementation of the the Game vs an easy AI
+//This will inherit the Game class and will get the interface of both IGameProcess and IGameAI
+public class GameAIEasy : Game, IGameProcess, IGameAI
+{
+    protected Random rnd = new();
+
+    //Promts the human for the Name
+    public void GetPlayers()
+    {
+        Console.WriteLine("Please enter name for Player 1");
+        Player1.Playername = Console.ReadLine();
+        Player1.PlayerSymbol = 'X';
+        Player2.Playername = "Computer";
+        Player2.PlayerSymbol = 'O';
+    }
+
+    //Starts a game with player 2 as the computer
+    public void StartGame()
+    {
+        bool gameover;
+        Console.WriteLine("Welcome to Connect 4 Game!");
+        GetPlayers();
+        Console.Clear();
+        Connect4Board.CreateBoard();
+
+        do
+        {
+            gameover = PlayGame(Player1);
+            if (gameover)
             {
                 PrintWinner(Player1);
                 Restart();
             }
 
             gameover = PlayGameAI(Player2);
-            if (gameover == true)
+            if (gameover)
             {
                 PrintWinner(Player2);
                 Restart();
             }
 
-        } while (gameover == false);
+        } while (!gameover);
     }
 
+    //Generates the move of the AI
+    //For the easy AI- It will just generate a random number from 1-7 without checking move of the human
     public virtual bool PlayGameAI(Player player)
     {
-        // Plays the game
-        bool winner = false;
-        bool FullColumn = false;
         int move;
         do
         {
             Connect4Board.DisplayBoard();
             move = rnd.Next(1, 7);
-            FullColumn = CheckPiece(move);
-            if (FullColumn == true)
+            if (IsColumnFull(move))
             {
                 move = 10;
             }
@@ -395,10 +411,9 @@ public class GameAI : Game
         } while (move > 6 || move < 0);
 
         PlacePiece(move, player);
-        winner = CheckWin(player);
         CheckIfFull();
         Console.Clear();
-        if (winner == true)
+        if (IsWinner(player))
         {
             Connect4Board.DisplayBoard();
             return true;
@@ -408,17 +423,39 @@ public class GameAI : Game
 
     }
 
-   
+    //Prompts for a restart
+    public void Restart()
+    {
+        int restart;
+        do
+        {
+            Console.WriteLine("Play Again? [1] = Yes, [2] = No");
+            restart = Convert.ToInt32(Console.ReadLine());
+            if (restart == 1)
+            {
+                Console.Clear();
+                StartGame();
+
+
+            }
+            else if (restart == 2)
+            {
+                Environment.Exit(0);
+            }
+        } while (restart != 1 || restart != 2);
+    }
 }
 
-public class GameAIHard : GameAI
+
+
+
+
+public class GameAIHard : GameAIEasy
 {
-    public virtual bool PlayGameAI(Player player)
+    public override bool PlayGameAI(Player player)
     {
         // Plays the game
-        bool winner = false;
-        bool FullColumn = false;
-        int move = 0;
+        int move;
         do
         {
             Connect4Board.DisplayBoard();
@@ -494,12 +531,7 @@ public class GameAIHard : GameAI
 
 
             //Condition
-
-
-
-
-            FullColumn = CheckPiece(move);
-            if (FullColumn == true)
+            if (IsColumnFull(move))
             {
                 move = 10;
             }
@@ -507,17 +539,15 @@ public class GameAIHard : GameAI
         } while (move > 6 || move < 0);
 
         PlacePiece(move, player);
-        winner = CheckWin(player);
         CheckIfFull();
         Console.Clear();
-        if (winner == true)
+        if (IsWinner(player))
         {
             Connect4Board.DisplayBoard();
             return true;
         }
 
         return false;
-
     }
 }
 
@@ -530,27 +560,27 @@ class Program
         Console.WriteLine("Please Select Mode:");
         Console.WriteLine("[1] Vs Human, [2] Vs Computer");
         play = Convert.ToInt32(Console.ReadLine());
-        if(play == 1)
+        if (play == 1)
         {
-            var NewGame = new Game();
+            var NewGame = new GameVsHuman();
             NewGame.StartGame();
-        }else if (play == 2)
+        }
+        else if (play == 2)
         {
             Console.WriteLine("Please Select Mode:");
             Console.WriteLine("[1] Easy, [2] Hard");
             play = Convert.ToInt32(Console.ReadLine());
 
-            if(play == 1){
-                var NewGame = new GameAI();
+            if (play == 1)
+            {
+                var NewGame = new GameAIEasy();
                 NewGame.StartGame();
-            }else if(play == 2)
+            }
+            else if (play == 2)
             {
                 var NewGame = new GameAIHard();
                 NewGame.StartGame();
             }
-
-
         }
     }
 }
-
