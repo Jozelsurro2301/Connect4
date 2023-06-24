@@ -4,9 +4,16 @@ namespace Connect4_Jozel_surro;
 
 //Class for the Game Implementation VS Human.
 //This inherits the Game class and gets the interface of the IGameProcess
-public class GameVsHuman : Game, IGameProcess
+public class GameVsHuman : Game
 {
-    public HumanPlayer Player2;
+    //This create another HumanPlayer for the 2 player Mode
+    private HumanPlayer _Player2;
+
+    public HumanPlayer Player2
+    {
+        get { return _Player2; }
+        set { _Player2 = value; }
+    }
 
     public GameVsHuman()
     {
@@ -15,7 +22,7 @@ public class GameVsHuman : Game, IGameProcess
 
 
     //Gets both players information and assigns the symbol for the game
-    public void GetPlayers()
+    public override void GetPlayers()
     {
         Console.WriteLine("Please enter name for Player 1");
         Player1.Playername = Console.ReadLine();
@@ -25,11 +32,12 @@ public class GameVsHuman : Game, IGameProcess
         Player2.PlayerSymbol = 'O';
     }
 
-    //Starts the Game 
-    public void StartGame()
+
+    //Starts the Game. This loops to both players until one player wins or ther is a draw
+    public override void StartGame()
     {
         bool gameover;
-        Console.WriteLine("Welcome to Connect 4 Game!");
+        Console.WriteLine("Connect 4! 2 Player Mode!");
         GetPlayers();
         Console.Clear();
         Connect4Board.CreateBoard();
@@ -56,7 +64,8 @@ public class GameVsHuman : Game, IGameProcess
         {
             Console.Clear();
             StartGame();
-        }  
+        }
+
 
     }
 

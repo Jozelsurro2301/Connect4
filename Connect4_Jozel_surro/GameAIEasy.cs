@@ -2,21 +2,27 @@
 
 namespace Connect4_Jozel_surro;
 
-//A class for a the game implementation of the the Game vs an easy AI
+//A class for a the game implementation of the the Game vs an Easy AI
 //This will inherit the Game class and will get the interface of both IGameProcess and IGameAI
-public class GameAIEasy : Game, IGameProcess
+public class GameAIEasy : Game
 {
-    public AIPlayerEasy Player2;
+    //Creates an Easy AI Player;
+    private AIPlayerEasy _Player2;
+
+    public AIPlayerEasy Player2
+    {
+        get { return _Player2; }
+        set { _Player2 = value; }
+    }
 
     public GameAIEasy()
     {
         Player2 = new AIPlayerEasy();
     }
 
-    protected Random rnd = new();
-
-    //Promts the human for the Name
-    public void GetPlayers()
+    
+    //Promts the human Player to input a name and assigns a symbol for oth human and AI Player
+    public override void GetPlayers()
     {
         Console.WriteLine("Please enter name for Player 1");
         Player1.Playername = Console.ReadLine();
@@ -25,11 +31,12 @@ public class GameAIEasy : Game, IGameProcess
         Player2.PlayerSymbol = 'O';
     }
 
-    //Starts a game with player 2 as the computer
-    public void StartGame()
+
+    //Starts a game with player 2 as the computer. This loops to both players until one player wins or ther is a draw.
+    public override void StartGame()
     {
         bool gameover;
-        Console.WriteLine("Welcome to Connect 4 Game!");
+        Console.WriteLine("Connect 4 Vs Easy AI!");
         GetPlayers();
         Console.Clear();
         Connect4Board.CreateBoard();
@@ -61,7 +68,7 @@ public class GameAIEasy : Game, IGameProcess
     }
 
     //Generates the move of the AI
-    //For the easy AI- It will just generate a random number from 1-7 without checking move of the human
+    //A method that gets the AI move and places it to the board.
     public bool PlayGameAI(AIPlayerEasy player)
     {
         int move;
@@ -71,7 +78,7 @@ public class GameAIEasy : Game, IGameProcess
        PlacePiece(move, player.PlayerSymbol);
 
        Console.Clear();
-        if (IsWinner(player.PlayerSymbol))
+        if (Connect4Board.IsWinner(player.PlayerSymbol))
         {
             Connect4Board.DisplayBoard();
             return true;
@@ -86,25 +93,4 @@ public class GameAIEasy : Game, IGameProcess
 
     }
 
-    //Prompts for a restart
-    //public void Restart()
-    //{
-    //    int restart;
-    //    do
-    //    {
-    //        Console.WriteLine("Play Again? [1] = Yes, [2] = No");
-    //        restart = GetInput();
-    //        if (restart == 1)
-    //        {
-    //            Console.Clear();
-    //            StartGame();
-
-
-    //        }
-    //        else if (restart == 2)
-    //        {
-    //            Environment.Exit(0);
-    //        }
-    //    } while (restart != 1 || restart != 2);
-    //}
 }

@@ -1,18 +1,25 @@
 ﻿namespace Connect4_Jozel_surro;
 
-public class GameAIHard : Game, IGameProcess
+public class GameAIHard : Game
 {
-    public AIPlayerHard Player2;
+    //Creates a Hard AI Player;
+    private AIPlayerHard _Player2;
+
+    public AIPlayerHard Player2
+    {
+        get { return _Player2; }
+        set { _Player2 = value; }
+    }
 
     public GameAIHard()
     {
         Player2 = new AIPlayerHard();
     }
 
-    protected Random rnd = new();
 
-    //Promts the human for the Name
-    public void GetPlayers()
+
+    //Promts the human Player to input a name and assigns a symbol for oth human and AI Player
+    public override void GetPlayers()
     {
         Console.WriteLine("Please enter name for Player 1");
         Player1.Playername = Console.ReadLine();
@@ -21,11 +28,11 @@ public class GameAIHard : Game, IGameProcess
         Player2.PlayerSymbol = 'O';
     }
 
-    //Starts a game with player 2 as the computer
-    public void StartGame()
+    //Starts a game with player 2 as the computer. This loops to both players until one player wins or ther is a draw.
+    public override void StartGame()
     {
         bool gameover;
-        Console.WriteLine("Welcome to Connect 4 Game!");
+        Console.WriteLine("Connect 4 Vs Hard AI");
         GetPlayers();
         Console.Clear();
         Connect4Board.CreateBoard();
@@ -57,6 +64,7 @@ public class GameAIHard : Game, IGameProcess
     }
 
     //Generates the move of the AI
+    //A method that gets the AI move and places it to the board.
     public bool PlayGameAI(AIPlayerHard player)
     {
         int move;
@@ -65,7 +73,7 @@ public class GameAIHard : Game, IGameProcess
 
         PlacePiece(move, player.PlayerSymbol);
         Console.Clear();
-        if (IsWinner(player.PlayerSymbol))
+        if (Connect4Board.IsWinner(player.PlayerSymbol))
         {
             Connect4Board.DisplayBoard();
             return true;

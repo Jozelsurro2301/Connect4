@@ -5,15 +5,23 @@ namespace Connect4_Jozel_surro;
 //Class for the Basic Implementation of the Game
 public class Game
 {
-    ////Creates 2 players
-    public HumanPlayer Player1;
+    //Creates 1 Human Player for every Game
+    private HumanPlayer _Player1;
+
+    public HumanPlayer Player1
+    {
+        get { return _Player1; }
+        set { _Player1 = value; }
+    }
 
     public Game()
     {
         Player1 = new HumanPlayer();
     }
 
-    public static int GetInput()
+
+    //Get a valid input for the menu option. throws a Ecxeption if the input is invalid
+    public int GetInput()
     {
         int input = 0;
         do
@@ -22,7 +30,7 @@ public class Game
             {
                 input = Convert.ToInt32(Console.ReadLine());
 
-                if (input < 1 || input > 2)
+                if (input < 1 || input > 3)
                 {
                     throw new GettingValidMove("Invalid Input");
                 }
@@ -37,13 +45,58 @@ public class Game
                 Gvm.EnterVAlidOption();
             }
         } while (true);
+
+    }
+
+
+    //Displays the Menu and Gets the user input on the mode to be played
+    public void GameMenu()
+    {
+        int play;
+        Console.Clear();
+        Console.WriteLine("Welcome to Connect 4 Game!");
+        Console.WriteLine("Please Select Mode:");
+        Console.WriteLine("[1] Vs Human\n[2] Vs Computer(Easy)\n[3] Vs Computer(Hard)");
+        play = GetInput();
+        if (play == 1)
+        {
+            Console.Clear();
+            var NewGame = new GameVsHuman();
+            NewGame.StartGame();
+        }
+        else if (play == 2)
+        {
+             Console.Clear();
+             var NewGame = new GameAIEasy();
+             NewGame.StartGame();
+        }
+        else if (play == 3)
+        {
+                Console.Clear();
+                var NewGame = new GameAIHard();
+                NewGame.StartGame();
+        }
         
     }
 
-   
-    //Every Game has 1 human playing
-    //This is the method that gets the move of Human
-    public static bool PlayGame(HumanPlayer player)
+    //Gets both players information and assigns the symbol for the game
+    public virtual void GetPlayers()
+    {
+        Console.WriteLine("Please enter name for Player 1");
+        Player1.Playername = Console.ReadLine();
+        Player1.PlayerSymbol = 'X';
+    }
+
+
+    //Starts the Game. This loops to both players until one player wins or ther is a draw
+    public virtual void StartGame()
+    {
+
+    }
+
+
+    //A method that get the Human Players Move and places it to the board.
+    public bool PlayGame(HumanPlayer player)
     {
         int move;
 
@@ -58,7 +111,7 @@ public class Game
         PlacePiece(move, player.PlayerSymbol);
         Console.Clear();
 
-        if (IsWinner(player.PlayerSymbol))
+        if (Connect4Board.IsWinner(player.PlayerSymbol))
         {
             Connect4Board.DisplayBoard();
             return true;
@@ -72,8 +125,8 @@ public class Game
     }
 
 
-    //Places the players piece to the board
-    public static void PlacePiece(int piece, char Player_Symbol)
+    //A Helper method that places the piece to the board
+    public void PlacePiece(int piece, char Player_Symbol)
     {
         for (int i = Connect4Board.Rows - 1; i >= 0; i--)
         {
@@ -86,91 +139,21 @@ public class Game
     }
 
 
-    //Check for winning patters
-    public static bool IsWinner(char Player_Symbol)
-    {
-        for (int i = 5; i >= 0; i--)
-        {
-            for (int j = 0; j <= 3; j++)
-            {
-                //Horizontal Win
-                if (Connect4Board.Board[i, j] == Player_Symbol &&
-                    Connect4Board.Board[i, j + 1] == Player_Symbol &&
-                    Connect4Board.Board[i, j + 2] == Player_Symbol &&
-                    Connect4Board.Board[i, j + 3] == Player_Symbol)
-                {
-                    //Return Win
-                    return true;
-                }
-            }
-        }
-
-        for (int i = 5; i >= 3; i--)
-        {
-            for (int j = 0; j <= 6; j++)
-            {
-                //Vertical Win
-                if (Connect4Board.Board[i, j] == Player_Symbol &&
-                    Connect4Board.Board[i - 1, j] == Player_Symbol &&
-                    Connect4Board.Board[i - 2, j] == Player_Symbol &&
-                    Connect4Board.Board[i - 3, j] == Player_Symbol)
-                {
-                    //Return Win
-                    return true;
-                }
-            }
-        }
-
-
-        for (int i = 5; i >= 3; i--)
-        {
-            for (int j = 0; j <= 3; j++)
-            {
-                //Diagonal Going Right Up
-                if (Connect4Board.Board[i, j] == Player_Symbol &&
-                Connect4Board.Board[i - 1, j + 1] == Player_Symbol &&
-                Connect4Board.Board[i - 2, j + 2] == Player_Symbol &&
-                Connect4Board.Board[i - 3, j + 3] == Player_Symbol)
-                {
-                    //Return Win
-                    return true;
-                }
-            }
-        }
-
-
-        for (int i = 5; i >= 3; i--)
-        {
-            for (int j = 3; j <= 6; j++)
-            {
-                //Diagonal Going Left Up
-                if (Connect4Board.Board[i, j] == Player_Symbol &&
-                    Connect4Board.Board[i - 1, j - 1] == Player_Symbol &&
-                    Connect4Board.Board[i - 2, j - 2] == Player_Symbol &&
-                    Connect4Board.Board[i - 3, j - 3] == Player_Symbol)
-                {
-                    //Return Win
-                    return true;
-                }
-            }
-        }
-
-        //return fase if there is not winning pattern
-        return false;
-
-    }
-
-  
-    public static bool Restart()
+    //Previews the Restart Menu after a successful Game
+    public bool Restart()
     {
         int restart;
         do
         {
-            Console.WriteLine("Play Again? [1] = Yes, [2] = No");
+            Console.WriteLine("Play Again? [1] = Yes, [2] = Main Menu, [3] = Exit");
             restart = GetInput();
-            if (restart == 2)
+            if (restart == 3)
             {
                 Environment.Exit(0);
+            }
+            else if (restart == 2)
+            {
+                GameMenu();
             }
             else
             {
@@ -180,8 +163,9 @@ public class Game
     }
 
 
+
     //Prints the winner of the game
-    public static void PrintWinner(string Playername)
+    public void PrintWinner(string Playername)
     {
         Console.WriteLine($"It is a Connect 4!, {Playername} Wins!");
     }

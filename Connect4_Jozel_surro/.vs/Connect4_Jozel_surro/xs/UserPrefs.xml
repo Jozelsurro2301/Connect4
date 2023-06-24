@@ -1,28 +1,33 @@
 ﻿<Properties StartupConfiguration="{E5CE9365-53B9-4E67-9E7B-AEF0FD146813}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameAIEasy.cs">
     <Files>
-      <File FileName="Program.cs" Line="88" Column="14" />
+      <File FileName="Player.cs" Line="76" Column="18" IsPinned="True" />
+      <File FileName="Game.cs" Line="70" Column="10" />
+      <File FileName="GameVsHuman.cs" Line="29" Column="12" />
+      <File FileName="GameAIEasy.cs" Line="25" Column="36" />
+      <File FileName="GameAIHard.cs" Line="69" Column="10" />
+      <File FileName="Program.cs" Line="12" Column="36" />
+      <File FileName="IGameProcess.cs" Line="9" Column="1" />
+      <File FileName="Connect4Board.cs" Line="77" Column="47" />
+      <File FileName="GettingValidMove.cs" Line="11" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Connect4_Jozel_surro">
-            <Node name="Connect4_Jozel_surro" expanded="True">
-              <Node name="Program.cs" selected="True" />
+            <Node name="Connect4_Jozel_surro">
+              <Node name="GameAIEasy.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Connect4__Jozel__surro PreferredExecutionTarget="MonoDevelop.Default" />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/Program.cs" relfile="Program.cs" line="20" column="1" />
-      <Breakpoint file="/Users/jozelsurro/Desktop/SODV 1201(C#)/FInalProject/Connect4/Connect4_Jozel_surro/Program.cs" relfile="Program.cs" line="6" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Connect4__Jozel__surro PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
 </Properties>

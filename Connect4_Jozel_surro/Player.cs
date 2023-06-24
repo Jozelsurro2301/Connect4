@@ -1,24 +1,24 @@
 ﻿namespace Connect4_Jozel_surro;
 
-//Class for Players
-public interface IPlayer
+//Interface of a Player. A player has a name, symbol and a method called GetMove();
+interface IPlayer
 {
 
-    public string Playername { get; set; }
-    public char PlayerSymbol { get; set; }
+    string Playername { get; set; }
+    char PlayerSymbol { get; set; }
 
     int GetMove();
 }
 
 
-
-
+//A class that inherits the interface of the IPlayer
 public class HumanPlayer : IPlayer
 {
     public string Playername { get; set; }
     public char PlayerSymbol { get; set; }
 
 
+    //This method gets user input for a move on the game. This is also an exception free since all possible exception has a catch.
     public int GetMove()
     {
         int move;
@@ -47,18 +47,15 @@ public class HumanPlayer : IPlayer
 
 
 
+//A class for EasyAI player that inherits the interface of the IPlayer
 public class AIPlayerEasy : IPlayer
 {
-    protected Random rnd = new();
 
-    //public AIPlayerEasy()
-    //{
-    //    PlayerInfo player = new PlayerInfo();
-    //}
-
+    private Random rnd = new();
     public string Playername { get; set; }
     public char PlayerSymbol { get; set; }
 
+    //This class will choose a random number from 1-6
     public int GetMove()
     {
 
@@ -76,12 +73,15 @@ public class AIPlayerEasy : IPlayer
 }
 
 
+//A class for HardAI player that inherits the interface of the IPlayer
 public class AIPlayerHard : IPlayer
 {
-    protected Random rnd = new();
+    private Random rnd = new();
     public string Playername { get; set; }
     public char PlayerSymbol { get; set; }
 
+
+    //Check sthe move of the Human Player if there is a possible winning pattern
     public int GetMove()
     {
         int move;
@@ -209,7 +209,7 @@ public class AIPlayerHard : IPlayer
                 }
             }
 
-            //Condition
+            //Checks if the the column if full. If the Column is full then generate a Random number from 0-6
             if (Connect4Board.IsColumnFull(move))
             {
                 do
